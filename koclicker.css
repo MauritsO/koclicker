@@ -1,0 +1,16 @@
+/* Stylesheet voor KO Clicker */
+
+body{
+	background-color: #CDDCEE;
+}
+
+
+#footer{
+	font-family: ff-enzo-web, helvetica, sans-serif;
+	position:absolute;
+	text-align:right;
+  	bottom:0;
+  	width:99%;
+  	margin: 2px;
+  	height:60px;   /* Height of the footer */
+}
