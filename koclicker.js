@@ -3,17 +3,38 @@ var str;
 var def;
 var spd;
 var agl;
+var items;
 var loc;
+var usern;
+
+//shop-related
+var gloves;
+var shield;
+var shoes;
+var potion;
+var shop;
+
 
 $(document).ready(function(){
-	//TODO: If cookie does not exists
-	newGame();
+	if (isCookie()) {
+		console.log("cookie present");
+		loadGame();
+	} else {
+		console.log("no cookie");
+		newGame();
+	}
+	var hoi = shop[1].name;
+	console.log(hoi);
 });
 
 function newGame() {
 	initVariables();
 	playGame();
+}
 
+function loadGame() {
+	loadVariables();
+	playGame();
 }
 
 function initVariables() {
@@ -21,11 +42,48 @@ function initVariables() {
 	def = 0;
 	spd = 0;
 	agl = 0;
+
+	shop = [];
+
+	inv = [];
+	usern = askUsername();
 	loc = "gym"
 }
 
 function playGame() {
 	setListeners();
+	setShop();
+}
+
+function askUsername() {
+	user = prompt("Please enter your name:","");
+	if (user!=="" && user!==null) {
+		setCookie("username",user,365);
+		usern = user;
+	} else {
+		askUsername();
+	}
+}
+
+function setShop() {
+	createItems();
+	//if (loc == "gym") {
+	//	room.prepend('<img id="gym" src="gym.png" />');
+	//}
+}
+
+function createItems() {
+	shop = [];
+	shop.push(new item("Gloves", 150, 100, 20, 5));
+	shop.push(new item("Shield", 0, 300, 0, 0));
+	shop.push(new item("Shoes", 10, 0, 250, 250));
+	shop.push(new item("Potion", 10, 10, 10, 10));
+}
+
+function setItems() {
+	shopDiv = $("#items");
+
+	shopDiv.html('')
 }
 
 function setListeners() {
@@ -60,6 +118,68 @@ function setListeners() {
 	    $("#weapons").slideUp();
 	    $("#glove").slideToggle();
 	});
+	
+	// Non-specific listeners
+	$("#save").click(function(){
+	    setCookie("str",str,365);
+	    setCookie("def",def,365);
+	    setCookie("spd",spd,365);
+	    setCookie("agl",agl,365);
+	});
+}
+
+function isCookie() {
+	var user=getCookie("username");
+	if (user!=="") {
+		usern = user;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function setCookie(cname,cvalue,exdays) {
+	var d = new Date();
+	d.setTime(d.getTime()+(exdays*24*60*60*1000));
+	var expires = "expires="+d.toGMTString();
+	document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++) {
+		var c = ca[i].trim();
+		if (c.indexOf(name)===0) return c.substring(name.length,c.length);
+	}
+	return "";
+}
+
+function loadVariables(){
+    str = getCookie("str");
+    def = getCookie("def");
+    spd = getCookie("spd");
+    agl = getCookie("agl");
+    if(str ==="")
+        str = 0;
+    if(def ==="")
+        def = 0;
+    if(spd ==="")
+        spd = 0;
+    if(agl ==="")
+        agl = 0;
+    $("#strmeter").text(str);
+    $("#defmeter").text(def);
+    $("#spdmeter").text(spd);
+    $("#aglmeter").text(agl);
+}
+
+function item(name, str, def, spd, agl) {
+	this.name = name;
+	this.str = str;
+	this.def = def;
+	this.spd = spd;
+	this.agl = agl;
 }
 	
 
