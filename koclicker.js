@@ -3,6 +3,12 @@ var str;
 var def;
 var spd;
 var agl;
+
+var str_rate;
+var def_rate;
+var spd_rate;
+var agl_rate;
+
 var items;
 var loc;
 var usern;
@@ -42,6 +48,7 @@ function initVariables() {
 	def = 0;
 	spd = 0;
 	agl = 0;
+	
 	health = 10;
 	shop = [];
 	inv = [];
@@ -54,7 +61,34 @@ function playGame() {
 	setListeners();
 	updateStats();
 	setShop();
+	window.setInterval(function(){ 
+	    gainsPerSecond();  
+	}, 1000);
 	
+}
+
+function gainsPerSecond() {
+	console.log("Gains");
+	str_rate = 1;
+	def_rate = 1;
+	spd_rate = 1;
+	agl_rate = 1;
+
+	for (var i = 0; i < inv.length; i++) {
+		if (typeof inv[i] !== "undefined") {
+			str_rate *= inv[i].str;
+			def_rate *= inv[i].def;
+			spd_rate *= inv[i].spd;
+			agl_rate *= inv[i].agl;
+		}
+	}
+	str = +str + str_rate;
+	def = +def + def_rate;
+	spd = +spd + spd_rate;
+	agl = +agl + agl_rate;
+	console.log(str);
+	
+	updateStats();
 }
 
 function askUsername() {
@@ -75,10 +109,10 @@ function setShop() {
 // Init shop items on new game
 function createShopItems() {
 	shop = [];
-	shop.push(new item("Gloves", 1,  150, 100, 20, 5));
-	shop.push(new item("Shield", 1,  0, 300, 0, 0));
-	shop.push(new item("Shoes", 1, 10, 0, 250, 250));
-	shop.push(new item("Potion", 1, 10, 10, 10, 10));
+	shop.push(new item("Gloves", 1,  1, 1, 0, 0));
+	shop.push(new item("Shield", 1,  0, 2, 0, 0));
+	shop.push(new item("Shoes", 1, 0, 0, 1, 1));
+	shop.push(new item("Potion", 1, 0.5, 0.5, 0.5, 0.5));
 }
 
 // Update items in the shop list
@@ -107,31 +141,11 @@ function buyItem(elem) {
 }
 
 function updateStats() {
-	var tot_str = +str;
-	var tot_def = +def;
-	var tot_spd = +spd;
-	var tot_agl = +agl;
-	var tot_health = +health;
-	
-	for (var i = 0; i < inv.length; i++) {
-		if (typeof inv[i] !== "undefined") {
-			tot_str += inv[i].str;
-			tot_def += inv[i].def;
-			tot_spd += inv[i].spd;
-			tot_agl += inv[i].agl;
-		}
-	}
-	
-	$("#strmeter").text(str);
-	$("#defmeter").text(def);
-	$("#spdmeter").text(spd);
-	$("#aglmeter").text(agl);
-
- 	$("#totalstr").text("Strength: " + Math.round(tot_str));
- 	$("#totaldef").text("Defense: " + Math.round(tot_def));
- 	$("#totalspd").text("Speed: " + Math.round(tot_spd));
- 	$("#totalagl").text("Agility: " + Math.round(tot_agl));
-  	$("#totalhealth").text("Health: " + Math.round(tot_health));
+ 	$("#totalstr").text("Strength: " + Math.round(str));
+ 	$("#totaldef").text("Defense: " + Math.round(def));
+ 	$("#totalspd").text("Speed: " + Math.round(spd));
+ 	$("#totalagl").text("Agility: " + Math.round(agl));
+  	$("#totalhealth").text("Health: " + Math.round(health));
 }
 
 
@@ -139,25 +153,21 @@ function setListeners() {
 	// Gym-specific listeners
 	$("#str").click(function () {
 	    str++;
-	    $("#strmeter").text(str);
 	    updateStats();
 	});
 	
 	$("#def").click(function () {
 	    def++;
-	    $("#defmeter").text(def);
 	    updateStats();
 	});
 	
 	$("#spd").click(function () {
 	    spd++;
-	    $("#spdmeter").text(spd);
 	    updateStats();
 	});
 	
 	$("#agl").click(function () {
 	    agl++;
-	    $("#aglmeter").text(agl);
 	    updateStats();
 	});
 	
@@ -185,6 +195,10 @@ function setListeners() {
 	
 	$("#bat").click(function () {
 		playBattle();
+	});
+	
+	$("#del").click(function () {
+		eraseCookie(usern);
 	});
 }
 
@@ -251,8 +265,6 @@ function playBattle() {
 	}
 }
 
-	
-
 // Cookie related stuff:
 //-------------------------
 // Check if cookie in browser cache
@@ -285,5 +297,8 @@ function getCookie(cname) {
 	return "";
 }
 
+function eraseCookie(name) {
+	document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 
 
