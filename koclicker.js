@@ -164,11 +164,11 @@ function setListeners() {
 	// Shop-specific listeners
 	$("#weaponsO").click(function () {
 	    $("#glove").slideUp();
-	    $("#weapons").slideToggle();
+	    $("#items").slideToggle();
 	});
 	
 	$("#gloveO").click(function () {
-	    $("#weapons").slideUp();
+	    $("#items").slideUp();
 	    $("#glove").slideToggle();
 	});
 	
