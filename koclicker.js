@@ -76,10 +76,10 @@ function gainsPerSecond() {
 
 	for (var i = 0; i < inv.length; i++) {
 		if (typeof inv[i] !== "undefined") {
-			str_rate *= inv[i].str;
-			def_rate *= inv[i].def;
-			spd_rate *= inv[i].spd;
-			agl_rate *= inv[i].agl;
+			//str_rate *= inv[i].str;
+			//def_rate *= inv[i].def;
+			//spd_rate *= inv[i].spd;
+			//agl_rate *= inv[i].agl;
 		}
 	}
 	str = +str + str_rate;
