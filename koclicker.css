@@ -26,3 +26,10 @@ body{
 #weapons, #glove {
     display: none;
 }
+
+#stats {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+	text-align: left;
+}
