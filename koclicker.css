@@ -16,13 +16,28 @@ body{
 }
 
 .shop {
+
     padding: 5px;
+
     text-allign: center;
+
     background-color:#e5eecc;
+
     border:solid 1px #c3c3c3;
+
     width: 50%;
+
 }
 
 #weapons, #glove {
+
     display: none;
+
+}
+
+#log{
+    overflow: scroll;
+    width: 50%;
+    height: 300px;
+    border: 2px solid blue;
 }
