@@ -2,6 +2,7 @@
 
 body{
 	background-color: #CDDCEE;
+  text-align:center;
 }
 
 
@@ -17,7 +18,11 @@ body{
 
 .shop {
     padding: 5px;
-    text-allign: center;
+    width:800px;
+    margin:0px auto;
+    text-align:left;
+    padding:5px;
+    border:1px dashed #333;
     background-color:#e5eecc;
     border:solid 1px #c3c3c3;
     width: 50%;
