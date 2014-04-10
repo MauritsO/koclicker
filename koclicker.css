@@ -16,36 +16,20 @@ body{
 }
 
 .shop {
-
     padding: 5px;
-
     text-allign: center;
-
     background-color:#e5eecc;
-
     border:solid 1px #c3c3c3;
-
     width: 50%;
-
 }
 
 #weapons, #glove {
-
     display: none;
-
 }
 
-<<<<<<< HEAD
-#log{
-    overflow: scroll;
-    width: 50%;
-    height: 300px;
-    border: 2px solid blue;
-=======
 #stats {
     position: fixed;
     top: 1em;
     right: 1em;
 	text-align: left;
->>>>>>> FETCH_HEAD
 }
