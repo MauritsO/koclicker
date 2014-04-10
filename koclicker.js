@@ -69,17 +69,17 @@ function playGame() {
 
 function gainsPerSecond() {
 	console.log("Gains");
-	str_rate = 1;
-	def_rate = 1;
-	spd_rate = 1;
-	agl_rate = 1;
+	str_rate = 0;
+	def_rate = 0;
+	spd_rate = 0;
+	agl_rate = 0;
 
 	for (var i = 0; i < inv.length; i++) {
 		if (typeof inv[i] !== "undefined") {
-			//str_rate *= inv[i].str;
-			//def_rate *= inv[i].def;
-			//spd_rate *= inv[i].spd;
-			//agl_rate *= inv[i].agl;
+			str_rate += inv[i].str;
+			def_rate += inv[i].def;
+			spd_rate += inv[i].spd;
+			agl_rate += inv[i].agl;
 		}
 	}
 	str = +str + str_rate;
@@ -298,7 +298,7 @@ function getCookie(cname) {
 }
 
 function eraseCookie(name) {
-	document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	document.cookie = "username=" + name + "; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 }
 
 
