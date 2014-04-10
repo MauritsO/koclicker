@@ -35,9 +35,17 @@ body{
 
 }
 
+<<<<<<< HEAD
 #log{
     overflow: scroll;
     width: 50%;
     height: 300px;
     border: 2px solid blue;
+=======
+#stats {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+	text-align: left;
+>>>>>>> FETCH_HEAD
 }
