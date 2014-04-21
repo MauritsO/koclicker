@@ -4,7 +4,7 @@ KO Clicker
 The most awesome idle-game out there
 
 
-TODO:
+TODO:  
 -Battle/healthbar animation  
 -icons in shop  
 -start cashflow(sponsorship) at certain strength  
