@@ -3,6 +3,7 @@ var str;
 var def;
 var spd;
 var agl;
+var money;
 
 var str_rate;
 var def_rate;
@@ -48,8 +49,9 @@ function initVariables() {
 	def = 0;
 	spd = 0;
 	agl = 0;
+	money = 0;
 	
-	health = 10;
+	health = 50;
 	shop = [];
 	inv = [];
 	usern = askUsername();
@@ -142,10 +144,11 @@ function buyItem(elem) {
 
 function updateStats() {
  	$("#totalstr").text("Strength: " + Math.round(str));
- 	$("#totaldef").text("Defense: " + Math.round(def));
+ 	$("#totaldef").text("Defence: " + Math.round(def));
  	$("#totalspd").text("Speed: " + Math.round(spd));
  	$("#totalagl").text("Agility: " + Math.round(agl));
   	$("#totalhealth").text("Health: " + Math.round(health));
+  	$("#totalcash").text("Money: " + Math.round(money));
 }
 
 
@@ -258,8 +261,9 @@ function playBattle() {
 	console.log("Arrived at battle");
     alert("You have gone to battle");
     if (str > enemy[n].strength && enemy[n].strength < health) {
-    	alert("gj you won");
-    n++; // if the enemy is beaten it will go on to the next enemy in the list
+    	alert("gj you won some money!");
+    	money++;
+    	n++; // if the enemy is beaten it will go on to the next enemy in the list
 	} else {
 		alert("Lost, nub. The enemy has strength " + enemy[n].strength + " and you only have strength " + str);
 	}

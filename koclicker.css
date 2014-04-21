@@ -1,8 +1,10 @@
 /* Stylesheet voor KO Clicker */
 
 body{
-	background-color: #CDDCEE;
+	background-image:url("background.jpg");
   text-align:center;
+  margin-top:50px;
+  background-color: #fff
 }
 
 
@@ -17,15 +19,28 @@ body{
 }
 
 .shop {
-    padding: 5px;
-    width:800px;
-    margin:0px auto;
+    opacity: 0.7;
+    padding: 10px;
+    margin: 0 auto;
+    width:200px;
     text-align:left;
-    padding:5px;
     border:1px dashed #333;
-    background-color:#e5eecc;
+    box-shadow : 5px 5px 5px #888887;
+    background-color:#fff;
     border:solid 1px #c3c3c3;
-    width: 50%;
+}
+#str, #def, #spd, #agl{
+  opacity:0.8;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+#str:active, #def:active, #spd:active, #agl:active{
+  opacity:1;
+  
+-webkit-box-shadow: 0px 0px 5px 2px rgba(255,255,255,1);
+-moz-box-shadow: 0px 0px 5px 2px rgba(255,255,255,1);
+box-shadow: 0px 0px 5px 2px rgba(255,255,255,1);
 }
 
 #weapons, #glove {
@@ -33,8 +48,14 @@ body{
 }
 
 #stats {
+  background-color: #fff;
+  opacity: 0.7;
+  margin-top: 50px;
+  box-shadow : 5px 5px 5px #888887;
+  padding-left: 20px;
+  padding-right: 50px;
     position: fixed;
     top: 1em;
-    right: 1em;
+    right: 3em;
 	text-align: left;
 }
