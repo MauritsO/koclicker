@@ -14,7 +14,7 @@ TODO:
 -find cheap/free hosting  
 -link to koclicker.com  
 -add enemies  
--add paypal donate buttun  
+-add paypal donate button  
 -optimize enemy stats  
 -post to reddit/facebook/telekids.nl  
 -????  
