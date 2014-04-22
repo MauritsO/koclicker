@@ -7,6 +7,7 @@ The most awesome idle-game out there
 TODO:  
 -Battle/healthbar animation  
 -icons in shop   
+-add challenges/rewards  
 -improve shop dropdown menu  
 -start cashflow(sponsorship) at certain strength  
 -optimize cash flow  
