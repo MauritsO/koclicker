@@ -111,10 +111,10 @@ function setShop() {
 // Init shop items on new game
 function createShopItems() {
 	shop = [];
-	shop.push(new item("Gloves", 1,  1, 1, 0, 0));
+	shop.push(new item("Gloves", 1,  2, 0, 0, 0));
 	shop.push(new item("Shield", 1,  0, 2, 0, 0));
-	shop.push(new item("Shoes", 1, 0, 0, 1, 1));
-	shop.push(new item("Potion", 1, 0.5, 0.5, 0.5, 0.5));
+	shop.push(new item("Shoes", 1, 0, 0, 2, 1));
+	shop.push(new item("Potion", 1, 0.1, 0.1, 0.1, 0.1));
 }
 
 // Update items in the shop list
