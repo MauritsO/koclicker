@@ -15,6 +15,7 @@ var loc;
 var usern;
 var inv;
 var health;
+var curHealth;
 
 //shop-related
 var gloves;
