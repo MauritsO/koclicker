@@ -147,7 +147,7 @@ function updateStats() {
  	$("#totaldef").text("Defence: " + Math.round(def));
  	$("#totalspd").text("Speed: " + Math.round(spd));
  	$("#totalagl").text("Agility: " + Math.round(agl));
-  	$("#totalhealth").text("Health: " + Math.round(health));
+  	$("#totalhealth").text("Health: " + curHealth + "/" + Math.round(health));
   	$("#totalcash").text("Money: " + Math.round(money));
   	setHealthBar(curHealth,health);
 }
@@ -193,6 +193,7 @@ function setListeners() {
 	    setCookie("spd", spd, 365);
 	    setCookie("agl", agl, 365);
 	    setCookie("health", health, 365);
+	    setCookie("curHealth", curHealth, 365);
 	    setCookie("shop", JSON.stringify(shop), 365);
 	    setCookie("inv", JSON.stringify(inv), 365);
 	});
