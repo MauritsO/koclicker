@@ -149,6 +149,7 @@ function updateStats() {
  	$("#totalagl").text("Agility: " + Math.round(agl));
   	$("#totalhealth").text("Health: " + Math.round(health));
   	$("#totalcash").text("Money: " + Math.round(money));
+  	setHealthBar(curHealth,health);
 }
 
 
@@ -203,6 +204,11 @@ function setListeners() {
 	$("#del").click(function () {
 		eraseCookie(usern);
 	});
+	
+	$("#test").click(function () {
+		curHealth -= 1;
+		updateStats();
+	});
 }
 
 // Load player (when cookie present) variables
@@ -212,6 +218,7 @@ function loadVariables(){
     spd = getCookie("spd");
     agl = getCookie("agl");
     health = getCookie("health");
+    curHealth = getCookie("curHealth");
     shop = getCookie("shop");
     inv = getCookie("inv");
     
@@ -225,6 +232,7 @@ function loadVariables(){
         agl = 0;
     if(health === "")
         health = 10;
+        curHealth = 10;
     if (shop === "") {
     	shop = [];
     } else {
@@ -236,6 +244,13 @@ function loadVariables(){
     } else {
     	inv = JSON.parse(inv);
     }
+}
+
+//Health based
+function setHealthBar(cur, max){
+	var per = (cur/max)*100;
+	per = per+"%";
+	$("#health > div").css("width",per);
 }
 
 // Constructor for item
