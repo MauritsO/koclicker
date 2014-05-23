@@ -14,7 +14,7 @@ TODO:
 -optimize cash flow  
 -more items in shop  
 -<strike>find cheap/free hosting</strike>    
--link to koclicker.com
+-<strike>link to koclicker.com</strike>  
 -add enemies  
 -add paypal donate button  
 -optimize enemy stats  
