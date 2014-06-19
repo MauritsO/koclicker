@@ -76,7 +76,7 @@ function gainsPerSecond() {
 	def_rate = 0;
 	spd_rate = 0;
 	agl_rate = 0;
-
+	console.log(inv);
 	for (var i = 0; i < inv.length; i++) {
 		if (typeof inv[i] !== "undefined") {
 			str_rate += inv[i].str;
@@ -89,8 +89,7 @@ function gainsPerSecond() {
 	def = +def + def_rate;
 	spd = +spd + spd_rate;
 	agl = +agl + agl_rate;
-	console.log(str);
-	
+
 	updateStats();
 }
 
@@ -120,17 +119,19 @@ function createShopItems() {
 
 // Update items in the shop list
 function updateItems() {
-	shopDiv = $("#items");
+	shopDiv = $("#shop");
 	var shopCode = "";
 	for (var i = 0; i < shop.length; i++) {
-		shopCode += '<li id = "' + i + '"onclick="buyItem(this)">' + shop[i].name + '(level: ' + shop[i].lvl + ')</li>';
+		shopCode += '<div id="shop_item">' + shop[i].name + '<br> level: ' 
+					+ shop[i].lvl + '<br> Price: 40 bucks <br> <button onclick="buyItem('+ i +')">Buy!</button></div>';
 	}
 	shopDiv.html(shopCode)
 }
 
 // Buy item from shop
 function buyItem(elem) {
-	var id = elem.id;
+	var id = elem;
+	console.log("REAC");
 	inv[id] = shop[id];
 
 	shop[id].lvl++;
@@ -144,10 +145,10 @@ function buyItem(elem) {
 }
 
 function updateStats() {
- 	$("#totalstr").text("Strength: " + Math.round(str));
- 	$("#totaldef").text("Defence: " + Math.round(def));
- 	$("#totalspd").text("Speed: " + Math.round(spd));
- 	$("#totalagl").text("Agility: " + Math.round(agl));
+ 	$("#totalstr").text("Strength: " + Math.round(str) + " (rate: "+ Math.round(str_rate) + "/s)");
+ 	$("#totaldef").text("Defence: " + Math.round(def)+ " (rate: "+ Math.round(def_rate) + "/s)");
+ 	$("#totalspd").text("Speed: " + Math.round(spd) + " (rate: "+ Math.round(spd_rate) + "/s)");
+ 	$("#totalagl").text("Agility: " + Math.round(agl) + " (rate: "+ Math.round(agl_rate) + "/s)");
   	$("#totalhealth").text("Health: " + curHealth + "/" + Math.round(health));
   	$("#totalcash").text("Money: " + Math.round(money));
   	setHealthBar(curHealth,health);

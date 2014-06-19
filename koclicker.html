@@ -8,37 +8,36 @@
 <title> koClicker </title>
 </head>
 <body>
-	
-     <h1> koClicker </h1>
-     
-	<div id="stats">
-		<p><h2>Stats:</h2></p>
-		<div id="health"><div></div></div>
-		<p id="totalhealth"></p>
-		<p id="totalstr"></p>
-		<p id="totaldef"></p>
-		<p id="totalspd"></p>
-		<p id="totalagl"></p>	
-		<p id="totalcash"></p>
+	<div id="container">
+		<div id="menu">
+	    	<p><h2>Train:</h2></p>
+	    	<img src="strength.png" id="str"></img>
+	        <img src="defence.png" id="def"></img>
+	        <img src="speed.png" id="spd"></img>
+	        <img src="agility.png" id="agl"></img>
+	        
+	        <p><h2>Shop:</h2></p>
+	        <div id="shop"></div>
+	    
+	    	<div id="buttons">
+	    		<button id= "save"> Save </button>
+	    		<button id= "load"> Load </button>
+	    		<button id= "del"> Delete </button>
+	    		<button id="bat">BATTLE</button>
+	    		<button id="test">TEST</button>
+	    	</div>
+	    </div>
+	    
+		<div id="stats">
+			<p><h2>Stats:</h2></p>
+			<div id="health"><div></div></div>
+			<p id="totalhealth"></p>
+			<p id="totalstr"></p>
+			<p id="totaldef"></p>
+			<p id="totalspd"></p>
+			<p id="totalagl"></p>	
+			<p id="totalcash"></p>
+		</div>
 	</div>
-    <img src="strength.png" id="str"></img>
-    <img src="defence.png" id="def"></img>
-    <img src="speed.png" id="spd"></img>
-    <img src="agility.png" id="agl"></img>
-    
-    <div id="weaponsO" class="shop">Shop</div>
-    <div class="shop">
-        <ul id ="items">
-        </ul>
-    </div>
-    
-	<div id="p1">
-		KO Clicker
-	</div>
-	<button id= "save"> Save </button>
-	<button id= "load"> Load </button>
-	<button id= "del"> Delete </button>
-	<button id="bat">BATTLE</button>
-	<button id="test">TEST</button>
 </body>
 </html>
