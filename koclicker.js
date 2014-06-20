@@ -145,10 +145,10 @@ function buyItem(elem) {
 }
 
 function updateStats() {
- 	$("#totalstr").text("Strength: " + Math.round(str) + " (rate: "+ Math.round(str_rate) + "/s)");
- 	$("#totaldef").text("Defence: " + Math.round(def)+ " (rate: "+ Math.round(def_rate) + "/s)");
- 	$("#totalspd").text("Speed: " + Math.round(spd) + " (rate: "+ Math.round(spd_rate) + "/s)");
- 	$("#totalagl").text("Agility: " + Math.round(agl) + " (rate: "+ Math.round(agl_rate) + "/s)");
+ 	$("#totalstr").text("Strength: " + Math.round(str) + " ("+ Math.round(str_rate) + "/s)");
+ 	$("#totaldef").text("Defence: " + Math.round(def)+ " ("+ Math.round(def_rate) + "/s)");
+ 	$("#totalspd").text("Speed: " + Math.round(spd) + " ("+ Math.round(spd_rate) + "/s)");
+ 	$("#totalagl").text("Agility: " + Math.round(agl) + " ("+ Math.round(agl_rate) + "/s)");
   	$("#totalhealth").text("Health: " + curHealth + "/" + Math.round(health));
   	$("#totalcash").text("Money: " + Math.round(money));
   	setHealthBar(curHealth,health);

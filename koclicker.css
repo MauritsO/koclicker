@@ -3,23 +3,35 @@
 body{
 	background-image:url("background.jpg");
   	text-align:center;
-  	margin-top:50px;
-  	background-color: #fff
+  	background-color: #fff;
+  	font-family: "Courier New", Courier, monospace;
 }
 
 #container {
 	margin-left: auto;
 	margin-right: auto;
-	width: 90%;
+	width: 100%;
+}
+
+#header {
+	height: 80px;
+	margin-bottom: 10px;
+	font-size:  40px;
+	vertical-align: center;
+}
+
+#header p,
+#header h1 {
+	margin: 0;
+	padding: 0;
 }
 
 #menu {
 	float: left;
 	background-color: #fff;
 	opacity: 0.7;
-	margin-top: 50px;
-	maring-left: 10px;
 	margin-right: 10px;
+	margin-left: 10px;
 	width: 70%;
 	box-shadow : 5px 5px 5px #888887;
 	padding: 10px;
@@ -30,13 +42,12 @@ body{
 	float: left;
 	background-color: #fff;
 	opacity: 0.7;
-	margin-top: 50px;
 	maring-left: 10px;
-	margin-right: 10px;
 	width: 20%;
 	box-shadow : 5px 5px 5px #888887;
 	padding: 10px;
   	text-align: left;
+  	clear: right;
 }
 
 #buttons {
