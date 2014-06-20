@@ -53,6 +53,7 @@ function initVariables() {
 	money = 0;
 	
 	health = 50;
+	curHealth = 50;
 	shop = [];
 	inv = [];
 	usern = askUsername();
@@ -64,9 +65,9 @@ function playGame() {
 	setListeners();
 	updateStats();
 	setShop();
-	window.setInterval(function(){ 
-	    gainsPerSecond();  
-	}, 1000);
+	//window.setInterval(function(){ 
+	//    gainsPerSecond();  
+	//}, 1000);
 	
 }
 
@@ -122,8 +123,8 @@ function updateItems() {
 	shopDiv = $("#shop");
 	var shopCode = "";
 	for (var i = 0; i < shop.length; i++) {
-		shopCode += '<div id="shop_item">' + shop[i].name + '<br> level: ' 
-					+ shop[i].lvl + '<br> Price: 40 bucks <br> <button onclick="buyItem('+ i +')">Buy!</button></div>';
+		shopCode += '<div class="shop_item">' + shop[i].name + '<br> level: ' 
+					+ shop[i].lvl + '<br> Price: 40 <br> <button onclick="buyItem('+ i +')">Buy!</button></div>';
 	}
 	shopDiv.html(shopCode)
 }
@@ -178,15 +179,34 @@ function setListeners() {
 	});
 	
 	// Shop-specific listeners
-	$("#weaponsO").click(function () {
-	    $("#glove").slideUp();
-	    $("#items").slideToggle();
+	$("#shop_title").click(function () {
+		var div = $("#shop");
+		var title = $("#shop_title");
+		
+		if (div.is(":hidden")) {
+			title.html("Shop: &#8595;");
+		} else {
+			title.html("Shop: &#8594;");
+		}
+		
+	    div.slideToggle();
 	});
 	
-	$("#gloveO").click(function () {
-	    $("#items").slideUp();
-	    $("#glove").slideToggle();
+	$("#opp_title").click(function () {
+		var div = $("#opp");
+		var title = $("#opp_title");
+		
+		if (div.is(":hidden")) {
+			title.html("Opponents: &#8595;");
+		} else {
+			title.html("Opponents: &#8594;");
+		}
+		
+	    div.slideToggle();
 	});
+	
+	
+
 	
 	// Non-specific listeners
 	$("#save").click(function () {
