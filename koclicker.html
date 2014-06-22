@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="koclicker.css">
 <script src="jquery-1.11.0.min.js"></script>
 <script src="koclicker.js"></script>
+<script src="battlemode.js"></script>
 <title> KO clicker </title>
 </head>
 <body>
@@ -12,28 +13,40 @@
 			<p><h1>KO clicker</h1></p>
 		</div>
 		<div id="opp_container">
-			heija
+			<div id="opp_stats">
+				<p><h2>Stats</h2></p>
+				<div id="opp_health_bar"><div></div></div>
+				<p id="opp_health"></p>
+				<p id="opp_str"></p>
+				<p id="opp_def"></p>
+				<p id="opp_spd"></p>
+				<p id="opp_agl"></p>
+				<div id="battle_btn"></div>	
+			</div>
 		</div>
 		<div id="menu_container">
 			<div id="menu">
 		    	<p><h2>Train:</h2></p>
-		    	<img src="strength.png" id="str"></img>
-		        <img src="defence.png" id="def"></img>
-		        <img src="speed.png" id="spd"></img>
-		        <img src="agility.png" id="agl"></img>
+		    	<img class="icon" src="strength.png" id="str"></img>
+		        <img class="icon" src="defence.png" id="def"></img>
+		        <img class="icon" src="speed.png" id="spd"></img>
+		        <img class="icon" src="agility.png" id="agl"></img>
 		        
 		        <p><h2 id="shop_title">Shop: &#8595;</h2></p>
 		        <div id="shop"></div>
 		        <p><h2 id="opp_title">Opponents: &#8595;</h2></p>
-		        <div id="opp"></div>
+		        <ul id="opp"></ul>
 		    
 		    	<div id="buttons">
 		    		<button id= "save"> Save </button>
 		    		<button id= "load"> Load </button>
 		    		<button id= "del"> Delete </button>
-		    		<button id="bat">BATTLE</button>
-		    		<button id="test">TEST</button>
 		    	</div>
+		    </div>
+		    <div id="battle">
+		    	<p id="battle_msg">Prepare for battle!</p>
+		    	<img id="opp_image"/>
+		    	<img id="my_image"/>
 		    </div>
 	    </div>
 	    <div id="stats_container">

@@ -50,7 +50,7 @@ function initVariables() {
 	def = 0;
 	spd = 0;
 	agl = 0;
-	money = 0;
+	money = 100;
 	
 	health = 50;
 	curHealth = 50;
@@ -65,9 +65,10 @@ function playGame() {
 	setListeners();
 	updateStats();
 	setShop();
-	//window.setInterval(function(){ 
-	//    gainsPerSecond();  
-	//}, 1000);
+	setOpponents();
+	window.setInterval(function(){ 
+	    gainsPerSecond();  
+	}, 1000);
 	
 }
 
@@ -109,6 +110,10 @@ function setShop() {
 	updateItems();
 }
 
+function setOpponents() {
+	updateOpponents();
+}
+
 // Init shop items on new game
 function createShopItems() {
 	shop = [];
@@ -120,7 +125,7 @@ function createShopItems() {
 
 // Update items in the shop list
 function updateItems() {
-	shopDiv = $("#shop");
+	var shopDiv = $("#shop");
 	var shopCode = "";
 	for (var i = 0; i < shop.length; i++) {
 		shopCode += '<div class="shop_item">' + shop[i].name + '<br> level: ' 
@@ -129,10 +134,31 @@ function updateItems() {
 	shopDiv.html(shopCode)
 }
 
+function updateOpponents() {
+	var opp = $( "#opp" );
+	var opp_code = "";
+	for (var i = 0; i < enemies.length; i++) {
+		opp_code += "<li class ='opp_item' onclick='loadOppStats(" + i + ")'>" + enemies[i].name + "</li><hr>";
+	}
+	opp.html(opp_code);
+}
+
+function loadOppStats(id) {
+	var enemy = enemies[id]
+	var opp_div = $( "#opp_stats" );
+	$("#opp_str").text("Strength: " + enemy.str);
+	$("#opp_def").text("Defence: " + enemy.def);
+	$("#opp_spd").text("Speed: " + enemy.spd);
+	$("#opp_alg").text("Agility: " + enemy.agl);
+	$("#opp_health").text("Health: " + enemy.health);
+	$( "#battle_btn" ).html("<button onclick=startBattle('" + id + "')>Battle</button>")
+	setHealthBarOpp(enemy.curHealth,enemy.health);
+	
+	opp_div.css("visibility", "visible");
+}
+
 // Buy item from shop
-function buyItem(elem) {
-	var id = elem;
-	console.log("REAC");
+function buyItem(id) {
 	inv[id] = shop[id];
 
 	shop[id].lvl++;
@@ -146,10 +172,10 @@ function buyItem(elem) {
 }
 
 function updateStats() {
- 	$("#totalstr").text("Strength: " + Math.round(str) + " ("+ Math.round(str_rate) + "/s)");
- 	$("#totaldef").text("Defence: " + Math.round(def)+ " ("+ Math.round(def_rate) + "/s)");
- 	$("#totalspd").text("Speed: " + Math.round(spd) + " ("+ Math.round(spd_rate) + "/s)");
- 	$("#totalagl").text("Agility: " + Math.round(agl) + " ("+ Math.round(agl_rate) + "/s)");
+ 	$("#totalstr").text("Strength: " + Math.round(str));
+ 	$("#totaldef").text("Defence: " + Math.round(def));
+ 	$("#totalspd").text("Speed: " + Math.round(spd) );
+ 	$("#totalagl").text("Agility: " + Math.round(agl));
   	$("#totalhealth").text("Health: " + curHealth + "/" + Math.round(health));
   	$("#totalcash").text("Money: " + Math.round(money));
   	setHealthBar(curHealth,health);
@@ -204,27 +230,19 @@ function setListeners() {
 		
 	    div.slideToggle();
 	});
-	
-	
 
-	
 	// Non-specific listeners
 	$("#save").click(function () {
-	    setCookie("str", str, 365);
-	    setCookie("def", def, 365);
-	    setCookie("spd", spd, 365);
-	    setCookie("agl", agl, 365);
-	    setCookie("health", health, 365);
-	    setCookie("curHealth", curHealth, 365);
-	    setCookie("shop", JSON.stringify(shop), 365);
-	    setCookie("inv", JSON.stringify(inv), 365);
+		console.log("-- Save the game --")
+		storeVariables();
 	});
 	
 	$("#bat").click(function () {
-		playBattle();
+		startBattle();
 	});
 	
 	$("#del").click(function () {
+		console.log("-- Delete save game --")
 		eraseCookie(usern);
 	});
 	
@@ -232,6 +250,18 @@ function setListeners() {
 		curHealth -= 1;
 		updateStats();
 	});
+}
+
+function storeVariables() {
+	setCookie("str", str, 365);
+	setCookie("def", def, 365);
+	setCookie("spd", spd, 365);
+	setCookie("agl", agl, 365);
+	setCookie("health", health, 365);
+	setCookie("curHealth", curHealth, 365);
+	setCookie("money", money, 365);
+	setCookie("shop", JSON.stringify(shop), 365);
+	setCookie("inv", JSON.stringify(inv), 365);
 }
 
 // Load player (when cookie present) variables
@@ -244,18 +274,17 @@ function loadVariables(){
     curHealth = getCookie("curHealth");
     shop = getCookie("shop");
     inv = getCookie("inv");
+    money = getCookie("money");
     
-    if(str === "")
-        str = 0;
-    if(def === "")
-        def = 0;
-    if(spd === "")
-        spd = 0;
-    if(agl === "")
-        agl = 0;
-    if(health === "")
-        health = 10;
-        curHealth = 10;
+    if (str === "") {str = 0};
+    if (def === "") {def = 0};
+    if (spd === "") {spd = 0};
+    if (agl === "") {agl = 0};
+    if (health === "") {health = 10};
+    if (curHealth === "") {curHealth = 50};
+    if (money === "") {money = 100};
+    
+    
     if (shop === "") {
     	shop = [];
     } else {
@@ -276,6 +305,12 @@ function setHealthBar(cur, max){
 	$("#health > div").css("width",per);
 }
 
+function setHealthBarOpp(cur, max){
+	var per = (cur/max)*100;
+	per = per+"%";
+	$("#opp_health_bar > div").css("width",per);
+}
+
 // Constructor for item
 function item(name, lvl, str, def, spd, agl) {
 	this.lvl = lvl;
@@ -288,10 +323,10 @@ function item(name, lvl, str, def, spd, agl) {
 
 // Match related stuff:
 //-------------------------
-var enemy1 = {health:10, strength:3};
-var enemy2 = {health:20, strength:15};
-var enemy3 = {health:30, strength:100};
-var enemy = [enemy1, enemy2, enemy3]; //list of enemies
+var enemy1 = {name: "Walking Turd",img: "walkingturd.png", health:10, curHealth:10, str:10, def:10, spd:10, agl:10 };
+var enemy2 = {name: "Stick Man", img: "stickman.png", health:100, curHealth:100, str:1, def:100, spd:1, agl:1 };
+var enemies = [enemy1, enemy2];
+
 
 var n = 0; // 0 is the first enemy in the list.
 

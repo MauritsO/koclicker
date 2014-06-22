@@ -1,5 +1,11 @@
 /* Stylesheet voor KO Clicker */
 
+html{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
 body{
 	background-image:url("background.jpg");
   	text-align:center;
@@ -21,7 +27,6 @@ body{
 	height: 60px;
 	padding: 0;
 	margin: 0;
-	margin-bottom: 10px;
 	font-size:  40px;
 	vertical-align: center;
 }
@@ -33,15 +38,31 @@ body{
 }
 
 #opp_container {
-	height: 100%;
 	width: 20%;
 	float: left;
+	clear: right;
 	margin: 0;
 	padding: 0;
+	height: calc(100% - 60px);
+	
 }
 
+#opp_stats {
+	background-color: #fff;
+	opacity: 0.7;
+	text-align: left;
+	margin-left: 20px;
+	margin-right: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 10px;
+	box-shadow : 5px 5px 5px rgb(77,62,40);
+	visibility: hidden;
+}
+
+
 #menu_container {
-	height: 100%;
+	height: calc(100% - 60px);
 	width: 60%;
 	float: left;
 	margin: 0;
@@ -52,11 +73,12 @@ body{
 	background-color: #fff;
 	opacity: 0.7;
 	text-align: left;
-	margin-right: 6px;
-	margin-left: 6px;
-	margin-top: 12px;
-	margin-bottom: 12px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	padding: 10px;
+	box-shadow : 5px 5px 5px rgb(77,62,40);
 }
 
 #stats_container {
@@ -65,18 +87,59 @@ body{
 	clear: right;
 	margin: 0;
 	padding: 0;
-	height: 100%;
+	height: calc(100% - 60px);
 }
 
 #stats {
 	background-color: #fff;
 	opacity: 0.7;
   	text-align: left;
-  	margin-left: 6px;
-  	margin-right: 12px;
-  	margin-top: 12px;
-  	margin-bottom: 12px;
+  	margin-left: 10px;
+  	margin-right: 20px;
+  	margin-top: 20px;
+  	margin-bottom: 20px;
   	padding: 10px;
+  	box-shadow : 5px 5px 5px rgb(77,62,40);
+}
+
+.icon {
+	opacity: 0;
+}
+
+#battle {
+	display: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	height: 100%;
+}
+
+#battle_msg {
+	position: relative;
+	top: 40%;
+	margin: 0 auto;
+	font-size: 80px;
+	font-weight: bold;
+}
+
+#opp_image {
+	position:absolute;
+	display: none;
+	padding: 0;
+	margin: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+#my_image {
+	display: none;
+	position:absolute;
+	bottom: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 1000;
 }
 
 #buttons {
@@ -106,6 +169,11 @@ body{
 	clear: left;
 }
 
+#opp {
+	list-style: none;
+	padding: 0;
+}
+
 #str, #def, #spd, #agl{
 	opacity:0.8;
 	margin-bottom: 10px;
@@ -131,6 +199,14 @@ body{
 }
 
 #health > div {
+    background-color: green;
+    border-radius: 13px;
+    width: 100%;
+    height: 13px;
+    font-size: 10px;
+}
+
+#opp_health_bar > div {
     background-color: green;
     border-radius: 13px;
     width: 100%;
