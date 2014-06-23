@@ -5,13 +5,14 @@ var spd;
 var agl;
 var money;
 
+var gain_counter;
+
 var str_rate;
 var def_rate;
 var spd_rate;
 var agl_rate;
 
 var items;
-var loc;
 var usern;
 var inv;
 var health;
@@ -57,7 +58,6 @@ function initVariables() {
 	shop = [];
 	inv = [];
 	usern = askUsername();
-	loc = "gym"
 	createShopItems();
 }
 
@@ -66,10 +66,15 @@ function playGame() {
 	updateStats();
 	setShop();
 	setOpponents();
-	//window.setInterval(function(){ 
-	 //   gainsPerSecond();  
-	//}, 1000);
-	
+	enableGainsPS()	
+}
+
+function enableGainsPS() {
+	gains_counter = setInterval(function(){ gainsPerSecond(); }, 1000);
+}
+
+function disableGainsPS() {
+	clearInterval(gains_counter);
 }
 
 function gainsPerSecond() {
@@ -121,10 +126,10 @@ function setOpponents() {
 // Init shop items on new game
 function createShopItems() {
 	shop = [];
-	shop.push(new item("Gloves", 1,  2, 0, 0, 0));
-	shop.push(new item("Shield", 1,  0, 2, 0, 0));
-	shop.push(new item("Shoes", 1, 0, 0, 2, 1));
-	shop.push(new item("Potion", 1, 0.1, 0.1, 0.1, 0.1));
+	shop.push(new item("Gloves",20, 1,  2, 0, 0, 0));
+	shop.push(new item("Shield",40, 1,  0, 2, 0, 0));
+	shop.push(new item("Shoes", 10, 1, 0, 0, 2, 1));
+	shop.push(new item("Potion", 5, 1, 0.1, 0.1, 0.1, 0.1));
 }
 
 // Update items in the shop list
@@ -133,7 +138,7 @@ function updateItems() {
 	var shopCode = "";
 	for (var i = 0; i < shop.length; i++) {
 		shopCode += '<div class="shop_item">' + shop[i].name + '<br> level: ' 
-					+ shop[i].lvl + '<br> Price: 40 <br> <button onclick="buyItem('+ i +')">Buy!</button></div>';
+					+ shop[i].lvl + '<br> Price: '+ shop[i].price +'<br> <button onclick="buyItem('+ i +')">Buy!</button></div>';
 	}
 	shopDiv.html(shopCode)
 }
@@ -154,7 +159,8 @@ function initOpp(id) {
 	// Reset curHealth if needed
 	curEnemy.curHealth = curEnemy.health;
 	updateOppStats();
-	opp_div.css("visibility", "visible");
+	opp_div.fadeIn(1000);
+	$( "#battle_btn" ).fadeIn(1000);
 }
 
 function updateOppStats(id) {
@@ -171,16 +177,19 @@ function updateOppStats(id) {
 
 // Buy item from shop
 function buyItem(id) {
-	inv[id] = shop[id];
-
-	shop[id].lvl++;
-	shop[id].str = Math.round(shop[id].str * 1.1);
-	shop[id].def = Math.round(shop[id].def * 1.1);
-	shop[id].spd = Math.round(shop[id].spd * 1.1);
-	shop[id].agl = Math.round(shop[id].agl * 1.1);
+	if (money >= shop[id].price) {
+		money -= shop[id].price;
+		inv[id] = shop[id];
 	
-	updateItems();
-	updateStats();
+		shop[id].lvl++;
+		shop[id].str = Math.round(shop[id].str * 1.1);
+		shop[id].def = Math.round(shop[id].def * 1.1);
+		shop[id].spd = Math.round(shop[id].spd * 1.1);
+		shop[id].agl = Math.round(shop[id].agl * 1.1);
+		
+		updateItems();
+		updateStats();
+	}
 }
 
 function updateStats() {
@@ -292,9 +301,10 @@ function loadVariables(){
     if (curHealth === "") {curHealth = 50};
     if (money === "") {money = 100};
     
-    
+    console.log(shop);
     if (shop === "") {
-    	shop = [];
+    	console.log("empty shop");
+    	createShopItems();
     } else {
     	shop = JSON.parse(shop);
     }
@@ -320,7 +330,8 @@ function setHealthBarOpp(cur, max){
 }
 
 // Constructor for item
-function item(name, lvl, str, def, spd, agl) {
+function item(name, price, lvl, str, def, spd, agl) {
+	this.price = price
 	this.lvl = lvl;
 	this.name = name;
 	this.str = str;

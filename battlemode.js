@@ -25,6 +25,7 @@ function initBattle(id) {
 }
 
 function switchBattleMode() {
+	disableGainsPS();
 	button.fadeOut(500);
 	menuDiv.fadeOut('slow', function() {
 		battleDiv.fadeIn('fast', function() {
@@ -33,7 +34,21 @@ function switchBattleMode() {
 	});
 }
 
-function switchMenuMode() {
+function switchMenuMode(won) {
+	$( "#opp_stats" ).fadeOut(1000);
+	battleDiv.fadeOut('slow', function() {
+		menuDiv.fadeIn('slow');
+		updateStats();
+		setShop();
+		setOpponents();
+		enableGainsPS();
+	});
+
+	if (won) {
+		console.log("you won");
+	} else {
+		console.log("you lost");
+	}
 
 }
 
@@ -147,7 +162,7 @@ function getHit(curEnemy, aRate){
         }
 		updateStats();
     }
-    if(curHealth < 0){
+    if(curHealth <= 0){
         defeat();
     }
     else{
@@ -161,11 +176,13 @@ function aRate(speed){
 function victory(){
 	clearTimeout(aao);
 	console.log("you won");
+	switchMenuMode(true);
 }
 
 function defeat(){
 	clearTimeout(aap);
 	console.log("defeet");
+	switchMenuMode(false);
 }
 
 function calcDodge(){
