@@ -3,27 +3,58 @@ var curEnemy;
 var playerImage;
 var oppImage;
 
+var button
+var menuDiv;
+var battleDiv;
+
+var battleWidth;
+var menuWidth;
+var oppWidth;
+var playerWidth;
+
 function initBattle(id) {
-	$( "#battle_btn" ).hide();
-	animations();
+	initAttributes();
+	switchBattleMode();
+	showIntroAnimations();
+	
+	setTimeout(
+	function() {
+		initWeights();
+	    startBattle(curEnemy);
+	  }, 4000);
 }
 
-function animations() {
-	var menu = $( "#menu" );
-	var battle = $( "#battle" );
-	
-	//battle.css("display", "table")
-	menu.fadeOut('slow', function() {
-			battle.fadeIn('fast', function() {
-			showMessage();
-			showImages();
-			setTimeout(
-			function() 
-			  {
-			    startBattle(curEnemy);
-			  }, 5000);
+function switchBattleMode() {
+	button.fadeOut(500);
+	menuDiv.fadeOut('slow', function() {
+		battleDiv.fadeIn('fast', function() {
+			return;
 		});
 	});
+}
+
+function switchMenuMode() {
+
+}
+
+function initAttributes() {
+	button = $( "#battle_btn" );
+	menuDiv = $( "#menu" );
+	battleDiv = $( "#battle" );
+	playerImage = $( "#my_image" );
+	oppImage = $( "#opp_image" );
+}
+
+function initWeights() {
+	battleWidth = battleDiv.width();
+	menuWidth = menuDiv.width();
+	playerWidth = playerImage.width();
+	oppWidth = oppImage.width();	
+}
+
+function showIntroAnimations() {
+	showMessage();
+	showImages();
 }
 
 function showMessage() {
@@ -41,8 +72,6 @@ function showMessage() {
 }
 
 function showImages() {
-	playerImage = $( "#my_image" );
-	oppImage = $( "#opp_image" );
 	
 	oppImage.attr("src", curEnemy.img);
 	playerImage.attr("src", "Henk.png");
@@ -81,6 +110,9 @@ function hit(curEnemy, aRate){
     if(!dodge){
 		console.log("youhit");
         curEnemy.curHealth -= dmg;
+        if (curEnemy.curHealth < 0 ) {
+        	curEnemy.curHealth = 0;
+        }
         updateOppStats();
     }
     
@@ -95,16 +127,24 @@ function hit(curEnemy, aRate){
 function getHit(curEnemy, aRate){
 	var dodge = false;
     var dmg = curEnemy.str - def;
+    var aglDif = agl - curEnemy.agl;
+    
     if(dmg <= 0){
         dmg = 1;
 	}
-    var aglDif = agl - curEnemy.agl;
+	
+    
     if(aglDif > 0){
         dodge = calcDodge(aglDif);
 	}
+	
     if(!dodge){
+    	animateOppAttack();
 		console.log("yougothit");
         curHealth -= dmg;
+        if (curHealth < 0) {
+        	curHealth = 0;
+        }
 		updateStats();
     }
     if(curHealth < 0){
@@ -131,3 +171,22 @@ function defeat(){
 function calcDodge(){
 	return false;
 }
+
+function animateOppAttack() {
+	oppImage.animate({ left : battleWidth - playerWidth * 1.5}, 300, function() {
+		oppImage.addClass('mirror')
+	});
+	oppImage.animate({ left : 0}, 600, function() {
+		oppImage.removeClass('mirror');
+	});
+}
+
+function animatePlayerAttack() {
+	playerImage.animate({ right : battleWidth - oppWidth * 1.5}, 300, function() {
+		playerImage.addClass('mirror')
+	});
+	playerImage.animate({ right : 0}, 300, function() {
+		playerImage.removeClass('mirror');
+	});
+}
+
