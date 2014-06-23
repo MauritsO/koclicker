@@ -1,10 +1,9 @@
 var message = ["3", "2", "1", "VS"]
 var curEnemy;
-var self;
-var opp;
+var playerImage;
+var oppImage;
 
-function startBattle(id) {
-	curEnemy = enemies[id];
+function initBattle(id) {
 	$( "#battle_btn" ).hide();
 	animations();
 }
@@ -21,7 +20,7 @@ function animations() {
 			setTimeout(
 			function() 
 			  {
-			    moveImages();
+			    startBattle(curEnemy);
 			  }, 5000);
 		});
 	});
@@ -42,18 +41,93 @@ function showMessage() {
 }
 
 function showImages() {
-	self = $( "#my_image" );
-	opp = $( "#opp_image" );
+	playerImage = $( "#my_image" );
+	oppImage = $( "#opp_image" );
 	
-	opp.attr("src", curEnemy.img);
-	self.attr("src", "Henk.png");
+	oppImage.attr("src", curEnemy.img);
+	playerImage.attr("src", "Henk.png");
 	
-	opp.fadeIn(4000);
-	self.fadeIn(4000);
+	oppImage.fadeIn(4000);
+	playerImage.fadeIn(4000);
 }
 
 function moveImages() {
 	console.log(self);
 	//Test
-	self.animate({ width: "40%" }, 1000 );
+	playerImage.animate({ width: "40%" }, 1000 );
+}
+
+function startBattle(curEnemy){
+    var aRateP = aRate(spd);
+    var aRateO = aRate(curEnemy.spd);
+    aap = setTimeout(function(){hit(curEnemy,aRateP);},aRateP);
+    aao = setTimeout(function(){getHit(curEnemy, aRateO);},aRateO);
+	console.log("battling: " + curEnemy.name);
+}
+
+function hit(curEnemy, aRate){
+    var dodge = false;
+    var dmg = str - curEnemy.def;
+    var aglDif = curEnemy.agl - agl;
+    
+    if(dmg <= 0) {
+        dmg = 1;
+    }
+
+    if(aglDif > 0){
+        dodge = calcDodge(aglDif);
+	}
+	
+    if(!dodge){
+		console.log("youhit");
+        curEnemy.curHealth -= dmg;
+        updateOppStats();
+    }
+    
+    if(curEnemy.curHealth <= 0){
+        victory();
+    }
+    else{
+        aap = setTimeout(function(){hit(curEnemy, aRate);},aRate);
+    }
+}
+
+function getHit(curEnemy, aRate){
+	var dodge = false;
+    var dmg = curEnemy.str - def;
+    if(dmg <= 0){
+        dmg = 1;
+	}
+    var aglDif = agl - curEnemy.agl;
+    if(aglDif > 0){
+        dodge = calcDodge(aglDif);
+	}
+    if(!dodge){
+		console.log("yougothit");
+        curHealth -= dmg;
+		updateStats();
+    }
+    if(curHealth < 0){
+        defeat();
+    }
+    else{
+        aao = setTimeout(function(){getHit(curEnemy, aRate)},aRate);
+    }
+}
+function aRate(speed){
+    return (1000 * (1 - (speed/100000)));
+}
+
+function victory(){
+	clearTimeout(aao);
+	console.log("you won");
+}
+
+function defeat(){
+	clearTimeout(aap);
+	console.log("defeet");
+}
+
+function calcDodge(){
+	return false;
 }

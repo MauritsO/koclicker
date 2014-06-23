@@ -66,19 +66,19 @@ function playGame() {
 	updateStats();
 	setShop();
 	setOpponents();
-	window.setInterval(function(){ 
-	    gainsPerSecond();  
-	}, 1000);
+	//window.setInterval(function(){ 
+	 //   gainsPerSecond();  
+	//}, 1000);
 	
 }
 
 function gainsPerSecond() {
-	console.log("Gains");
+
 	str_rate = 0;
 	def_rate = 0;
 	spd_rate = 0;
 	agl_rate = 0;
-	console.log(inv);
+
 	for (var i = 0; i < inv.length; i++) {
 		if (typeof inv[i] !== "undefined") {
 			str_rate += inv[i].str;
@@ -91,6 +91,10 @@ function gainsPerSecond() {
 	def = +def + def_rate;
 	spd = +spd + spd_rate;
 	agl = +agl + agl_rate;
+	
+	if (curHealth < health) { 
+		curHealth++; 
+	}
 
 	updateStats();
 }
@@ -138,23 +142,31 @@ function updateOpponents() {
 	var opp = $( "#opp" );
 	var opp_code = "";
 	for (var i = 0; i < enemies.length; i++) {
-		opp_code += "<li class ='opp_item' onclick='loadOppStats(" + i + ")'>" + enemies[i].name + "</li><hr>";
+		opp_code += "<li class ='opp_item' onclick='initOpp(" + i + ")'>" + enemies[i].name + "</li><hr>";
 	}
 	opp.html(opp_code);
 }
 
-function loadOppStats(id) {
-	var enemy = enemies[id]
+function initOpp(id) {
 	var opp_div = $( "#opp_stats" );
-	$("#opp_str").text("Strength: " + enemy.str);
-	$("#opp_def").text("Defence: " + enemy.def);
-	$("#opp_spd").text("Speed: " + enemy.spd);
-	$("#opp_alg").text("Agility: " + enemy.agl);
-	$("#opp_health").text("Health: " + enemy.health);
-	$( "#battle_btn" ).html("<button onclick=startBattle('" + id + "')>Battle</button>")
-	setHealthBarOpp(enemy.curHealth,enemy.health);
+	curEnemy = enemies[id];
 	
+	// Reset curHealth if needed
+	curEnemy.curHealth = curEnemy.health;
+	updateOppStats();
 	opp_div.css("visibility", "visible");
+}
+
+function updateOppStats(id) {
+	$("#opp_str").text("Strength: " + curEnemy.str);
+	$("#opp_def").text("Defence: " + curEnemy.def);
+	$("#opp_spd").text("Speed: " + curEnemy.spd);
+	$("#opp_alg").text("Agility: " + curEnemy.agl);
+	$("#totalhealth").text("Health: " + curHealth + "/" + health);
+	$("#opp_health").text("Health: " + curEnemy.curHealth + "/" + curEnemy.health);
+	$( "#battle_btn" ).html("<button onclick=initBattle('" + id + "')>Battle</button>")
+	setHealthBarOpp(curEnemy.curHealth,curEnemy.health);
+
 }
 
 // Buy item from shop
@@ -237,10 +249,6 @@ function setListeners() {
 		storeVariables();
 	});
 	
-	$("#bat").click(function () {
-		startBattle();
-	});
-	
 	$("#del").click(function () {
 		console.log("-- Delete save game --")
 		eraseCookie(usern);
@@ -302,13 +310,13 @@ function loadVariables(){
 function setHealthBar(cur, max){
 	var per = (cur/max)*100;
 	per = per+"%";
-	$("#health > div").css("width",per);
+	$("#player_health_bar > div").animate({ width: per }, 500 );
 }
 
 function setHealthBarOpp(cur, max){
 	var per = (cur/max)*100;
 	per = per+"%";
-	$("#opp_health_bar > div").css("width",per);
+	$("#opp_health_bar > div").animate({ width: per }, 500 );
 }
 
 // Constructor for item
@@ -327,20 +335,6 @@ var enemy1 = {name: "Walking Turd",img: "walkingturd.png", health:10, curHealth:
 var enemy2 = {name: "Stick Man", img: "stickman.png", health:100, curHealth:100, str:1, def:100, spd:1, agl:1 };
 var enemies = [enemy1, enemy2];
 
-
-var n = 0; // 0 is the first enemy in the list.
-
-function playBattle() {
-	console.log("Arrived at battle");
-    alert("You have gone to battle");
-    if (str > enemy[n].strength && enemy[n].strength < health) {
-    	alert("gj you won some money!");
-    	money++;
-    	n++; // if the enemy is beaten it will go on to the next enemy in the list
-	} else {
-		alert("Lost, nub. The enemy has strength " + enemy[n].strength + " and you only have strength " + str);
-	}
-}
 
 // Cookie related stuff:
 //-------------------------

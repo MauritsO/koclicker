@@ -192,13 +192,13 @@ body{
 }
 
 
-#health {
+.health {
     border-radius: 13px;
     background-color: red;
     width: 100%;
 }
 
-#health > div {
+#player_health_bar > div {
     background-color: green;
     border-radius: 13px;
     width: 100%;
