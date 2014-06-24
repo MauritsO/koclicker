@@ -79,6 +79,7 @@ body{
 	margin-bottom: 20px;
 	padding: 10px;
 	box-shadow : 5px 5px 5px rgb(77,62,40);
+	height: 100%;
 }
 
 #stats_container {

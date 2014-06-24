@@ -37,19 +37,23 @@ function switchBattleMode() {
 function switchMenuMode(won) {
 	$( "#opp_stats" ).fadeOut(1000);
 	battleDiv.fadeOut('slow', function() {
-		menuDiv.fadeIn('slow');
-		updateStats();
-		setShop();
-		setOpponents();
-		enableGainsPS();
+		menuDiv.fadeIn('slow', function() {
+			enableGainsPS();
+			setOpponents();
+			alertResult(won);
+			updateStats();
+		});
 	});
+	
+}
 
+function alertResult(won) {
 	if (won) {
-		console.log("you won");
+		money = +money + curEnemy.reward;
+		alert("Congratulations! You've beaten: " + curEnemy.name + ", and won " + curEnemy.reward + " coins!");
 	} else {
-		console.log("you lost");
+		alert("Too bad, you lost the fight... You need to train harder!");
 	}
-
 }
 
 function initAttributes() {

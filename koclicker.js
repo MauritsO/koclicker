@@ -297,7 +297,7 @@ function loadVariables(){
     if (def === "") {def = 0};
     if (spd === "") {spd = 0};
     if (agl === "") {agl = 0};
-    if (health === "") {health = 10};
+    if (health === "") {health = 50};
     if (curHealth === "") {curHealth = 50};
     if (money === "") {money = 100};
     
@@ -342,8 +342,8 @@ function item(name, price, lvl, str, def, spd, agl) {
 
 // Match related stuff:
 //-------------------------
-var enemy1 = {name: "Walking Turd",img: "walkingturd.png", health:10, curHealth:10, str:10, def:10, spd:10, agl:10 };
-var enemy2 = {name: "Stick Man", img: "stickman.png", health:100, curHealth:100, str:1, def:100, spd:1, agl:1 };
+var enemy1 = {name: "Walking Turd",img: "walkingturd.png", reward: 50, health:10, curHealth:10, str:10, def:10, spd:10, agl:10 };
+var enemy2 = {name: "Stick Man", img: "stickman.png", reward: 100, health:100, curHealth:100, str:1, def:100, spd:1, agl:1 };
 var enemies = [enemy1, enemy2];
 
 
