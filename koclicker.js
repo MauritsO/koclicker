@@ -147,7 +147,7 @@ function updateOpponents() {
 	var opp = $( "#opp" );
 	var opp_code = "";
 	for (var i = 0; i < enemies.length; i++) {
-		opp_code += "<li class ='opp_item' onclick='initOpp(" + i + ")'>" + enemies[i].name + "</li><hr>";
+		opp_code += "<li class ='opp_item no_select' onclick='initOpp(" + i + ")'>" + enemies[i].name + "</li><hr>";
 	}
 	opp.html(opp_code);
 }
@@ -342,9 +342,10 @@ function item(name, price, lvl, str, def, spd, agl) {
 
 // Match related stuff:
 //-------------------------
-var enemy1 = {name: "Walking Turd",img: "walkingturd.png", reward: 50, health:10, curHealth:10, str:10, def:10, spd:10, agl:10 };
-var enemy2 = {name: "Stick Man", img: "stickman.png", reward: 100, health:100, curHealth:100, str:1, def:100, spd:1, agl:1 };
-var enemies = [enemy1, enemy2];
+var enemy1 = {name: "Tremendous Turd",img: "walkingturd.png", reward: 50, health:10, curHealth:10, str:10, def:10, spd:10, agl:10 };
+var enemy2 = {name: "Sticky Sam", img: "stickman.png", reward: 100, health:100, curHealth:100, str:1, def:100, spd:1, agl:1 };
+var enemy3 = {name: "Cardboard Carl", img: "cardboardghost.png", reward: 1000, health:1000, curHealth:100, str:100, def:100, spd:10, agl:1 };
+var enemies = [enemy1, enemy2, enemy3];
 
 
 // Cookie related stuff:

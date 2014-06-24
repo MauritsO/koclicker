@@ -79,7 +79,6 @@ body{
 	margin-bottom: 20px;
 	padding: 10px;
 	box-shadow : 5px 5px 5px rgb(77,62,40);
-	height: 100%;
 }
 
 #stats_container {
@@ -228,4 +227,14 @@ h2 {
      -moz-transform: scale(-1, 1);
      -webkit-transform: scale(-1, 1);
      transform: scale(-1, 1);
+ }
+ 
+ .no_select {
+ 	cursor: default;
+ 	-webkit-touch-callout: none;
+ 	-webkit-user-select: none;
+ 	-khtml-user-select: none;
+ 	-moz-user-select: none;
+ 	-ms-user-select: none;
+ 	user-select: none;
  }
