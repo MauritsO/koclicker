@@ -33,7 +33,6 @@ $(document).ready(function(){
 	} else {
 		newGame();
 	}
-	var hoi = shop[1].name;
 });
 
 function newGame() {
@@ -59,6 +58,7 @@ function initVariables() {
 	inv = [];
 	usern = askUsername();
 	createShopItems();
+	storeVariables();
 }
 
 function playGame() {
